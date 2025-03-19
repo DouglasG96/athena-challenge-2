@@ -1,0 +1,9 @@
+variable "aws_region" { default = "us-east-1" }
+variable "aws_profile" { default = "athena" }
+variable "vpc_cidr" { default = "10.0.0.0/16" }
+variable "public_subnets" { type = list(string) }
+variable "private_subnets" { type = list(string) }
+variable "ecs_cluster_name" { default = "athena-ecs-cluster" }
+variable "db_username" { default = "admin" }
+variable "db_password" { sensitive = true }
+variable "environment" { default = "production" }
