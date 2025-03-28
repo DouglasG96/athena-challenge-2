@@ -11,7 +11,7 @@ variable "aws_profile" {
 
 variable "state_s3_bucket" {
   description = "The name of the S3 bucket to store the Terraform state file"
-  default     = "athena-terraform-state"
+  default     = "athena-ch2-terraform-state"
   type        = string
 }
 
