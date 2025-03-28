@@ -8,7 +8,7 @@ terraform {
     }
   }
   backend "s3" {
-    bucket = "athena-terraform-state"
+    bucket = "athena-ch2-terraform-state"
     key    = "athena/prod-terraform.tfstate"
     region = "us-east-1"
   }

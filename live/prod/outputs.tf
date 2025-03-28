@@ -1,42 +1,42 @@
 #VPC 
 output "vpc_id" {
   description = "ID of the VPC"
-  value       = aws_vpc.main.id
+  value       = module.vpc.vpc_id
 }
 
 output "public_subnet_ids" {
   description = "List of public subnet IDs"
-  value       = aws_subnet.public[*].id
+  value       = module.vpc.public_subnet_ids
 }
 
 output "private_subnet_ids" {
   description = "List of private subnet IDs"
-  value       = aws_subnet.private[*].id
+  value       = module.vpc.private_subnet_ids
 }
 
 output "public_route_table_ids" {
   description = "List of public route table IDs"
-  value       = [aws_route_table.public.id]
+  value       = [module.vpc.public_route_table_ids]
 }
 
 output "private_route_table_ids" {
   description = "List of private route table IDs"
-  value       = aws_route_table.private[*].id
+  value       = module.vpc.private_route_table_ids
 }
 
 output "nat_gateway_ids" {
   description = "List of NAT Gateway IDs"
-  value       = aws_nat_gateway.nat[*].id
+  value       = module.vpc.nat_gateway_ids
 }
 
 output "nat_gateway_public_ips" {
   description = "List of public IPs of NAT Gateways"
-  value       = aws_eip.nat[*].public_ip
+  value       = module.vpc.nat_gateway_public_ips
 }
 
 output "internet_gateway_id" {
   description = "ID of the Internet Gateway"
-  value       = aws_internet_gateway.igw.id
+  value       = module.vpc.internet_gateway_id
 }
 
 output "azs" {
@@ -46,19 +46,19 @@ output "azs" {
 
 #ECS
 
-output "ecs_cluster_id" { value = aws_ecs_cluster.athena_ecs_cluster.id }
-output "ecs_cluster_name" { value = aws_ecs_cluster.athena_ecs_cluster.name }
-output "ecs_cluster_service_id" { value = aws_ecs_service.athena_ecs_service.id }
-output "ecs_cluster_service_name" { value = aws_ecs_service.athena_ecs_service.name }
-output "logs_groups" { value = "/ecs/${var.project_name}" }
+# output "ecs_cluster_id" { value = aws_ecs_cluster.athena_ecs_cluster.id }
+# output "ecs_cluster_name" { value = aws_ecs_cluster.athena_ecs_cluster.name }
+# output "ecs_cluster_service_id" { value = aws_ecs_service.athena_ecs_service.id }
+# output "ecs_cluster_service_name" { value = aws_ecs_service.athena_ecs_service.name }
+# output "logs_groups" { value = "/ecs/${var.project_name}" }
 
 # ECR 
-output "repository_url" {
-  description = "The URL of the created ECR repository"
-  value       = aws_ecr_repository.this.repository_url
-}
+# output "repository_url" {
+#   description = "The URL of the created ECR repository"
+#   value       = aws_ecr_repository.this.repository_url
+# }
 
-output "repository_arn" {
-  description = "The ARN of the created ECR repository"
-  value       = aws_ecr_repository.this.arn
-}
+# output "repository_arn" {
+#   description = "The ARN of the created ECR repository"
+#   value       = aws_ecr_repository.this.arn
+# }

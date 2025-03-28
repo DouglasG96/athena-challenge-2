@@ -1,6 +1,6 @@
 variable "project_name" {
-    description = "Name of the project"
-    type        = string
+  description = "Name of the project"
+  type        = string
 }
 
 variable "vpc_cidr" {
@@ -26,5 +26,5 @@ variable "azs" {
 variable "cidr_block" {
   description = "CIDR block for the VPC"
   type        = string
-  default = "0.0.0.0/0"
+  default     = "0.0.0.0/0"
 }

@@ -5,40 +5,40 @@ resource "aws_alb" "main" {
   subnets            = var.public_subnets
   security_groups    = [aws_security_group.alb_sg.id]
 
-  dynamic "access_logs"{
+  dynamic "access_logs" {
     for_each = var.access_logs
     content {
-      bucket = try(lookup(access_logs.value, "bucket"), null)
-      prefix = try(lookup(access_logs.value, "prefix"), null)
+      bucket  = try(lookup(access_logs.value, "bucket"), null)
+      prefix  = try(lookup(access_logs.value, "prefix"), null)
       enabled = try(lookup(access_logs.value, "enabled"), null)
     }
   }
 }
 
 resource "aws_security_group" "alb" {
-  name = "${var.project_name}-alb-sg"
+  name        = "${var.project_name}-alb-sg"
   description = "controls access to the ALB"
-  vpc_id = var.vpc_id
+  vpc_id      = var.vpc_id
 
   ingress = [{
-    protocol = "tcp"
-    from_protocol = var.alb_port == null ? 80 : var.alb_port
-    to_protocol = var.alb_port == null ? 80 : var.alb_port
-    cidr_blocks = ["0.0.0.0/0"]
+    protocol        = "tcp"
+    from_protocol   = var.alb_port == null ? 80 : var.alb_port
+    to_protocol     = var.alb_port == null ? 80 : var.alb_port
+    cidr_blocks     = ["0.0.0.0/0"]
     security_groups = []
-  },
-  {
-    protocol = "tcp"
-    from_protocol = "443"
-    to_protocol = "443"
-    cidr_blocks = ["0.0.0.0/0"]
-    security_groups = []
+    },
+    {
+      protocol        = "tcp"
+      from_protocol   = "443"
+      to_protocol     = "443"
+      cidr_blocks     = ["0.0.0.0/0"]
+      security_groups = []
   }]
 
   egress = {
-    protocol = "-1"
-    from_port = 0
-    to_port = 0
+    protocol    = "-1"
+    from_port   = 0
+    to_port     = 0
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
