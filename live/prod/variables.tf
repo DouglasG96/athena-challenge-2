@@ -50,7 +50,7 @@ variable "private_subnets" { type = list(string) }
 
 variable "environment_vars" {
   default = {}
-  type = map(string)
+  type    = map(string)
 }
 
 variable "log_retention_days" {
@@ -61,8 +61,8 @@ variable "log_retention_days" {
 
 variable "db_credentials_arn" {
   description = "ARN of db secrets"
-  default = ""
-  type = string
+  default     = ""
+  type        = string
 }
 
 # ECR
@@ -148,6 +148,6 @@ variable "cluster_instances" {
 }
 
 # Monitoring
-variable "email_address" {type = string}
-variable "public_subnet" {type = string}
+variable "email_address" { type = string }
+variable "public_subnet" { type = string }
 data "aws_caller_identity" "current" {}

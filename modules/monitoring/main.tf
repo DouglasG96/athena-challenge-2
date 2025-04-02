@@ -96,6 +96,9 @@ resource "aws_cloudtrail" "audit_trail" {
   include_global_service_events = true
   is_multi_region_trail         = true
   enable_log_file_validation    = true
+  lifecycle {
+    prevent_destroy = false
+  }
 }
 
 resource "aws_cloudwatch_log_group" "app_logs" {
@@ -165,10 +168,10 @@ resource "aws_sns_topic_subscription" "email" {
 
 resource "aws_s3_bucket" "cloudtrail" {
   bucket        = "${var.project_name}-cloudtrail-logs-${random_id.bucket_suffix.hex}"
-  force_destroy = false
+  force_destroy = true
 
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false
   }
 
   tags = {

@@ -19,7 +19,7 @@ log_retention_days = 30
 # ECR
 
 image_tag_mutability = "MUTABLE"
-force_delete         = false
+force_delete         = true
 
 # VPC
 

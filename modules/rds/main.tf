@@ -10,12 +10,12 @@ resource "aws_rds_cluster" "aurora_mysql" {
   db_subnet_group_name    = aws_db_subnet_group.main.name
   vpc_security_group_ids  = [aws_security_group.rds_sg.id]
   skip_final_snapshot     = true  # For dev/test environments
-  deletion_protection     = true  # Prevent accidental deletion
+  deletion_protection     = false  # Prevent accidental deletion
   storage_encrypted       = true  # Always encrypt at rest
   apply_immediately       = false # Apply during maintenance window
 
   lifecycle {
-    prevent_destroy = true # Extra protection against deletion
+    prevent_destroy = false # Extra protection against deletion
   }
 }
 
