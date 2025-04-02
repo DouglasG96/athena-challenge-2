@@ -16,8 +16,8 @@ terraform apply -auto-approve
 echo "terraform_state module deployed successfully."
 
 # Step 2: Deploy modules
-echo "Deploying modules..."
-cd "../iam"
+echo "Deploying production modules..."
+cd "../"
 terraform fmt
 terraform init
 terraform plan

@@ -60,7 +60,7 @@ variable "private_subnets" { type = list(string) }
 
 variable "environment_vars" {
   default = {}
-  type = map(string)
+  type    = map(string)
 }
 
 variable "secrets" {
@@ -80,6 +80,6 @@ variable "log_retention_days" {
 
 variable "db_credentials_arn" {
   description = "ARN of db secrets"
-  default = ""
-  type = string
+  default     = ""
+  type        = string
 }

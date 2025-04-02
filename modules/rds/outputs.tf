@@ -49,7 +49,7 @@ output "arn" {
   value       = aws_rds_cluster.aurora_mysql.arn
 }
 
-output "secret_arn"{
+output "secret_arn" {
   description = "The ARN of the secret for the Aurora cluster"
-  value = aws_secretsmanager_secret.db_credentials.arn
+  value       = aws_secretsmanager_secret.db_credentials.arn
 }

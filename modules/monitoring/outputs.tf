@@ -26,7 +26,7 @@ output "security_alerts_topic_arn" {
 
 output "ssh_monitoring_metric_filter" {
   description = "Details of the SSH monitoring metric filter"
-  value       = {
+  value = {
     name           = aws_cloudwatch_log_metric_filter.ssh_failures.name
     log_group_name = aws_cloudwatch_log_metric_filter.ssh_failures.log_group_name
     pattern        = aws_cloudwatch_log_metric_filter.ssh_failures.pattern
@@ -46,7 +46,7 @@ output "config_recorder_name" {
 
 output "incident_response_runbook" {
   description = "Details of the SSM Incident Response document"
-  value       = {
+  value = {
     name    = aws_ssm_document.incident_response.name
     version = aws_ssm_document.incident_response.latest_version
     arn     = aws_ssm_document.incident_response.arn

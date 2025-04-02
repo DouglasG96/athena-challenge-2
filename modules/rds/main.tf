@@ -5,13 +5,13 @@ resource "aws_rds_cluster" "aurora_mysql" {
   database_name           = "${var.project_name}db"
   master_username         = var.db_username
   master_password         = var.db_password
-  backup_retention_period = 7 # Days (recommended minimum)
+  backup_retention_period = 7             # Days (recommended minimum)
   preferred_backup_window = "02:00-03:00" # During low traffic
   db_subnet_group_name    = aws_db_subnet_group.main.name
   vpc_security_group_ids  = [aws_security_group.rds_sg.id]
-  skip_final_snapshot     = true # For dev/test environments
-  deletion_protection     = true # Prevent accidental deletion
-  storage_encrypted       = true # Always encrypt at rest
+  skip_final_snapshot     = true  # For dev/test environments
+  deletion_protection     = true  # Prevent accidental deletion
+  storage_encrypted       = true  # Always encrypt at rest
   apply_immediately       = false # Apply during maintenance window
 
   lifecycle {
@@ -20,18 +20,18 @@ resource "aws_rds_cluster" "aurora_mysql" {
 }
 
 resource "aws_rds_cluster_instance" "aurora_mysql_instances" {
-  count              = var.cluster_instances
-  identifier         = "${var.project_name}-aurora-mysql-${count.index}"
-  cluster_identifier = aws_rds_cluster.aurora_mysql.id
-  instance_class     = var.instance_class
-  engine             = aws_rds_cluster.aurora_mysql.engine
-  engine_version     = aws_rds_cluster.aurora_mysql.engine_version
-  auto_minor_version_upgrade  = false # More control over updates
+  count                      = var.cluster_instances
+  identifier                 = "${var.project_name}-aurora-mysql-${count.index}"
+  cluster_identifier         = aws_rds_cluster.aurora_mysql.id
+  instance_class             = var.instance_class
+  engine                     = aws_rds_cluster.aurora_mysql.engine
+  engine_version             = aws_rds_cluster.aurora_mysql.engine_version
+  auto_minor_version_upgrade = false # More control over updates
 }
 
 resource "aws_db_subnet_group" "main" {
-  name       = "${var.project_name}-rds-subnet-group"
-  subnet_ids = var.private_subnets
+  name        = "${var.project_name}-rds-subnet-group"
+  subnet_ids  = var.private_subnets
   description = "Private subnets for Aurora MySQL cluster"
 
   tags = {
@@ -116,11 +116,11 @@ resource "aws_secretsmanager_secret" "db_credentials" {
 resource "aws_secretsmanager_secret_version" "db_credentials" {
   secret_id = aws_secretsmanager_secret.db_credentials.id
   secret_string = jsonencode({
-    DB_USER = var.db_username
+    DB_USER     = var.db_username
     DB_PASSWORD = var.db_password
-    DB_ENGINE   =  aws_rds_cluster.aurora_mysql.engine
+    DB_ENGINE   = aws_rds_cluster.aurora_mysql.engine
     DB_HOST     = aws_rds_cluster.aurora_mysql.endpoint
     DB_PORT     = aws_rds_cluster.aurora_mysql.port
-    DB_NAME   = aws_rds_cluster.aurora_mysql.database_name
+    DB_NAME     = aws_rds_cluster.aurora_mysql.database_name
   })
 }

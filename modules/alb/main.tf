@@ -22,15 +22,15 @@ resource "aws_security_group" "alb" {
 
   ingress {
     protocol        = "tcp"
-    from_port   = var.alb_port == null ? 80 : var.alb_port
-    to_port     = var.alb_port == null ? 80 : var.alb_port
+    from_port       = var.alb_port == null ? 80 : var.alb_port
+    to_port         = var.alb_port == null ? 80 : var.alb_port
     cidr_blocks     = ["0.0.0.0/0"]
     security_groups = []
   }
   ingress {
     protocol        = "tcp"
-    from_port   = 443
-    to_port     = 443
+    from_port       = 443
+    to_port         = 443
     cidr_blocks     = ["0.0.0.0/0"]
     security_groups = []
   }
@@ -42,8 +42,8 @@ resource "aws_security_group" "alb" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-    Name        = "${var.project_name}-alb-sg"
-  } 
+    Name = "${var.project_name}-alb-sg"
+  }
 }
 
 # Target Group for ECS Service
@@ -71,7 +71,7 @@ resource "aws_alb_target_group" "ecs" {
   tags = {
     Name = "${var.project_name}-tg"
   }
-  depends_on = [ aws_alb.main ]
+  depends_on = [aws_alb.main]
 }
 
 resource "aws_alb_listener" "http" {

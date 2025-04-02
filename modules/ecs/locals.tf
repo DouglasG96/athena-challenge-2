@@ -9,13 +9,13 @@ locals {
 
   container_definitions = jsonencode([
     {
-      name      = "${var.project_name}-container"
-      image     = var.container_image
-      cpu       = var.container_cpu
-      memory    = var.container_memory
+      name        = "${var.project_name}-container"
+      image       = var.container_image
+      cpu         = var.container_cpu
+      memory      = var.container_memory
       environment = local.ecs_vars
-      secrets      = var.secrets
-      essential = true
+      secrets     = var.secrets
+      essential   = true
       portMappings = [
         {
           protocol      = "tcp"

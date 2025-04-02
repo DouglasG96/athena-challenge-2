@@ -19,7 +19,7 @@ variable "internal_alb" {
 
 # variable "access_logs" { type = list(any) }
 variable "vpc_id" {
-  type = string
+  type    = string
   default = ""
 }
 variable "public_subnets" { type = list(string) }

@@ -40,9 +40,9 @@ resource "aws_security_group" "ecs" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   ingress {
-    from_port   = var.container_port
-    to_port     = var.container_port
-    protocol    = "tcp"
+    from_port       = var.container_port
+    to_port         = var.container_port
+    protocol        = "tcp"
     security_groups = var.alb_security_groups != null ? var.alb_security_groups : []
     cidr_blocks     = var.alb_security_groups == null ? ["0.0.0.0/0"] : []
   }
@@ -53,7 +53,7 @@ resource "aws_security_group" "ecs" {
 }
 
 resource "aws_service_discovery_http_namespace" "service_namespace" {
-  name = var.project_name
+  name        = var.project_name
   description = "Service discovery namespace for ${var.project_name}"
 }
 
@@ -79,14 +79,14 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_policy" {
 }
 
 resource "aws_ecs_task_definition" "athena_ecs_task_definition" {
-  family                = "${var.project_name}-task"
-  execution_role_arn    = aws_iam_role.ecs_task_execution_role.arn
-  network_mode = "awsvpc"
-  cpu = var.container_cpu
-  memory = var.container_memory
+  family                   = "${var.project_name}-task"
+  execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
+  network_mode             = "awsvpc"
+  cpu                      = var.container_cpu
+  memory                   = var.container_memory
   requires_compatibilities = ["FARGATE"]
-  container_definitions = local.container_definitions
-  depends_on = [aws_cloudwatch_log_group.ecs_logs]
+  container_definitions    = local.container_definitions
+  depends_on               = [aws_cloudwatch_log_group.ecs_logs]
 }
 
 resource "aws_appautoscaling_target" "ecs_target" {
@@ -177,7 +177,7 @@ resource "aws_iam_role_policy_attachment" "custom_logs_policy" {
 data "aws_caller_identity" "current" {}
 resource "aws_cloudwatch_log_group" "ecs_logs" {
   name              = "/ecs/${var.project_name}"
-  retention_in_days = var.log_retention_days  # Adjust retention as needed
+  retention_in_days = var.log_retention_days # Adjust retention as needed
   tags = {
     Name = "${var.project_name}-ecs-logs"
   }

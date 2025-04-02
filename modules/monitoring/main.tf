@@ -1,11 +1,11 @@
 resource "aws_instance" "monitored_instance" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = "t3.micro"
-  iam_instance_profile = aws_iam_instance_profile.monitoring_profile.name
+  ami                    = data.aws_ami.ubuntu.id
+  instance_type          = "t3.micro"
+  iam_instance_profile   = aws_iam_instance_profile.monitoring_profile.name
   vpc_security_group_ids = [aws_security_group.instance_sg.id]
-  subnet_id     = var.public_subnet
+  subnet_id              = var.public_subnet
 
-   user_data = <<-EOF
+  user_data = <<-EOF
               #!/bin/bash
               # Install and configure CloudWatch agent
               sudo apt-get update -y
@@ -130,7 +130,7 @@ resource "aws_security_group" "instance_sg" {
   vpc_id      = var.vpc_id
 
 
-    ingress {
+  ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
@@ -189,20 +189,20 @@ resource "aws_s3_bucket_policy" "cloudtrail" {
       },
       Action   = "s3:GetBucketAcl",
       Resource = aws_s3_bucket.cloudtrail.arn
-    },
-    {
-      Sid    = "AWSCloudTrailWrite",
-      Effect = "Allow",
-      Principal = {
-        Service = "cloudtrail.amazonaws.com"
       },
-      Action   = "s3:PutObject",
-      Resource = "${aws_s3_bucket.cloudtrail.arn}/AWSLogs/${data.aws_caller_identity.current.account_id}/*",
-      Condition = {
-        StringEquals = {
-          "s3:x-amz-acl" = "bucket-owner-full-control"
+      {
+        Sid    = "AWSCloudTrailWrite",
+        Effect = "Allow",
+        Principal = {
+          Service = "cloudtrail.amazonaws.com"
+        },
+        Action   = "s3:PutObject",
+        Resource = "${aws_s3_bucket.cloudtrail.arn}/AWSLogs/${data.aws_caller_identity.current.account_id}/*",
+        Condition = {
+          StringEquals = {
+            "s3:x-amz-acl" = "bucket-owner-full-control"
+          }
         }
-      }
     }]
   })
 }
@@ -303,11 +303,11 @@ resource "aws_cloudwatch_log_metric_filter" "ssh_failures" {
 
 resource "aws_cloudwatch_log_group" "auth_logs" {
   name              = "/${var.project_name}/auth"
-  retention_in_days = 90  # Keep logs for 3 months
-  kms_key_id        = aws_kms_key.logs_key.arn  # Optional encryption
+  retention_in_days = 90                       # Keep logs for 3 months
+  kms_key_id        = aws_kms_key.logs_key.arn # Optional encryption
 
   tags = {
-    Name        = "${var.project_name}-auth-logs"
+    Name = "${var.project_name}-auth-logs"
   }
 }
 
