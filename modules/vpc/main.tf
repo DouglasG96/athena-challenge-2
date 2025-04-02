@@ -60,7 +60,7 @@ resource "aws_subnet" "private" {
 
 # Elastic IP for NAT Gateway
 resource "aws_eip" "nat" {
-  count  = length(var.public_subnets)
+  count = length(var.public_subnets)
   # domain = "vpc"
   tags = {
     Name = "${var.project_name}-nat-eip-${count.index}"

@@ -16,11 +16,11 @@ terraform apply -auto-approve
 echo "terraform_state module deployed successfully."
 
 # Step 2: Deploy modules
-# echo "Deploying modules..."
-# cd "../iam"
-# terraform fmt
-# terraform init
-# terraform plan
-# terraform apply -auto-approve
+echo "Deploying modules..."
+cd "../iam"
+terraform fmt
+terraform init
+terraform plan
+terraform apply -auto-approve
 
 echo "All modules deployed successfully."
