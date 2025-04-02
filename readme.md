@@ -15,9 +15,7 @@ Install the AWS CLI from the [official guide](https://docs.aws.amazon.com/cli/la
 
 ### 3. **IAM Credentials** 🔒  
 Create an IAM user with programmatic access and the following permissions:
-   - `IAMFullAccess`
-   - `AmazonS3FullAccess`
-   - `AmazonSSMFullAccess`
+   - `AdministratorAccess`
 
 Save the **Access Key ID** and **Secret Access Key** for the next steps.
 
